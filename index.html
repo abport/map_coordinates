@@ -29,16 +29,6 @@
         .map-container {
             position: relative;
         }
-
-        #toolbox {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            background-color: white;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
     </style>
 </head>
 
@@ -48,24 +38,22 @@
     </div>
     <form id="latlon-form">
         <label for="lat">Latitude:</label>
-        <input type="text" id="lat" name="latitude" placeholder="Enter latitude">
+        <input type="text" id="lat" name="latitude" placeholder="Enter latitude"><br />
         <label for="lon">Longitude:</label>
-        <input type="text" id="lon" name="longitude" placeholder="Enter longitude">
+        <input type="text" id="lon" name="longitude" placeholder="Enter longitude"><br />
         <button type="button" id="go-to-location" onclick="goToLatLon()">Go to location</button>
     </form>
+    <br />
 
     <form id="utm-form">
         <label for="utm-zone">UTM Zone:</label>
-        <input type="text" id="utm-zone" name="utm-zone" placeholder="Enter UTM Zone">
+        <input type="text" id="utm-zone" name="utm-zone" placeholder="Enter UTM Zone"><br />
         <label for="utm-easting">UTM Easting:</label>
-        <input type="text" id="utm-easting" name="utm-easting" placeholder="Enter UTM Easting">
+        <input type="text" id="utm-easting" name="utm-easting" placeholder="Enter UTM Easting"><br />
         <label for="utm-northing">UTM Northing:</label>
-        <input type="text" id="utm-northing" name="utm-northing" placeholder="Enter UTM Northing">
+        <input type="text" id="utm-northing" name="utm-northing" placeholder="Enter UTM Northing"><br />
         <button type="button" id="go-to-location" onclick="goToUTM()">Go to location</button>
     </form>
-
-    <div id="toolbox"></div>
-
 
     <script>
         var map = L.map('map').setView([38.08, 46.29], 13);
@@ -104,14 +92,28 @@
         var marker;
 
         function goToLatLon() {
-            var lat = document.getElementById("lat").value;
-            var lon = document.getElementById("lon").value;
-            if (isNaN(lat) || isNaN(lon)) {
+            // Get the coordinates from the form
+            var lat = parseFloat(document.getElementById("lat").value);
+            var lng = parseFloat(document.getElementById("lon").value);
+
+            if (!Number.isFinite(lat) || !Number.isFinite(lng)) {
                 alert("Invalid Latitude/Longitude coordinates");
                 return;
             }
-            map.setView([lat, lon], 13);
-            addMarker(lat, lon);
+
+            var utm = proj4('+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs', [lng, lat]);
+            var easting = utm[0].toFixed(2);
+            var northing = utm[1].toFixed(2);
+            var zone = 33;
+
+            // Remove the previous marker from the map
+            if (marker) {
+                map.removeLayer(marker);
+            }
+            // Create a new marker at the provided coordinates and add it to the map
+            marker = L.marker([lat, lng]).addTo(map);
+            marker.bindPopup("Latitude: " + lat + "<br>Longitude: " + lng + "<br>UTM Zone: " + zone + "<br>UTM Easting: " + easting + "<br>UTM Northing: " + northing).openPopup();
+            map.setView([lat, lng], 15);
         }
 
         function goToUTM() {
@@ -129,12 +131,19 @@
             var lon = coords[0];
             if (lat != null && lon != null) {
                 map.setView([lat, lon], 13);
-                addMarker(lat, lon);
+                // Remove the previous marker from the map
+                if (marker) {
+                    map.removeLayer(marker);
+                }
+                // Create a new marker at the provided coordinates and add it to the map
+                marker = L.marker([lat, lon]).addTo(map);
+                marker.bindPopup("Latitude: " + lat + "<br>Longitude: " + lon + "<br>UTM Zone: " + zone + "<br>UTM Easting: " + easting + "<br>UTM Northing: " + northing).openPopup();
             }
             else {
                 alert("Invalid UTM coordinates");
             }
         }
+
 
         function addMarker(lat, lon) {
             if (marker) {
@@ -142,20 +151,6 @@
             }
             marker = L.marker([lat, lon]).addTo(map);
         }
-
-        // map.on('click', function (e) {
-        //     var latlng = e.latlng;
-        //     var lat = latlng.lat;
-        //     var lng = latlng.lng;
-        //     var utm = proj4('+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs', [lng, lat]);
-        //     var easting = utm[0].toFixed(2);
-        //     var northing = utm[1].toFixed(2);
-        //     var zone = 33;
-        //     var marker = L.marker(latlng).addTo(map);
-        //     marker.bindPopup("Latitude: " + lat + "<br>Longitude: " + lng + "<br>UTM Zone: " + zone + "<br>UTM Easting: " + easting + "<br>UTM Northing: " + northing).openPopup();
-        //     L.DomEvent.stopPropagation(e);
-
-        // });
 
         map.on('click', function (e) {
             var latlng = e.latlng;
@@ -174,9 +169,6 @@
             marker.bindPopup("Latitude: " + lat + "<br>Longitude: " + lng + "<br>UTM Zone: " + zone + "<br>UTM Easting: " + easting + "<br>UTM Northing: " + northing).openPopup();
             L.DomEvent.stopPropagation(e);
         });
-
-
-
 
 
     </script>
