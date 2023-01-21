@@ -13,7 +13,7 @@ This project is a web-based interactive map using [Leaflet.js](https://leafletjs
 
 ## Usage
 - Open the index.html file in your browser.
-- Use the form at the top of the page to enter coordinates (latitude and longitude or UTM).
+- Use the form to enter coordinates (latitude and longitude or UTM).
 - Click on "Go to Location" button to center the map on the provided coordinates and add a marker to that location.
 - Click on "Show forms" button to show forms for entering coordinates as a popup.
 - Click on "Clear Markers" button to remove all markers from the map.
