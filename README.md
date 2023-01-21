@@ -7,7 +7,6 @@ This project is a web-based interactive map using [Leaflet.js](https://leafletjs
 - Includes a UTM input field and a function that converts UTM to latitude and longitude and sets the view of the map to those coordinates.
 - Allows users to add a marker at the entered location.
 - Displays a message if the location is not found.
-- Includes additional functionalities to make the form more user-friendly.
 - Allows users to click on the map and it will display a toolbox showing the latitude and longitude and also the UTM of that point
 - Allows to clear the markers added by clicking on a button.
 - When the user click on a point on the map, it adds a marker to that point and displays the Latitude and longitude and also the UTM of the marker in a Popup.
