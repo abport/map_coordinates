@@ -1,4 +1,4 @@
-# Leaflet Map
+# Locate Coordinates on Map
 
 This project is a web-based interactive map using [Leaflet.js](https://leafletjs.com/) library. It is centered on Tabriz, Iran and uses OpenStreetMap as the base map.
 
