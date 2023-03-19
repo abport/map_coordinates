@@ -4,6 +4,8 @@ This project is a web-based interactive map using [Leaflet.js](https://leafletjs
 
 [![Live Preview](https://img.shields.io/badge/Live%20Preview-View%20Now-brightgreen)](https://go2gps.netlify.app/)
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/0e1762b4-bde9-40f5-b655-d4a30928b2ef/deploy-status)](https://app.netlify.com/sites/go2gps/deploys)
+
 ## Features
 - Allows users to enter latitude and longitude or UTM coordinates and it will locate the point on the map.
 - Includes a UTM input field and a function that converts UTM to latitude and longitude and sets the view of the map to those coordinates.
