@@ -2,6 +2,8 @@
 
 This project is a web-based interactive map using [Leaflet.js](https://leafletjs.com/) library. It is centered on Tabriz, Iran and uses OpenStreetMap as the base map.
 
+[![Live Preview](https://img.shields.io/badge/Live%20Preview-View%20Now-brightgreen)](https://go2gps.netlify.app/)
+
 ## Features
 - Allows users to enter latitude and longitude or UTM coordinates and it will locate the point on the map.
 - Includes a UTM input field and a function that converts UTM to latitude and longitude and sets the view of the map to those coordinates.
