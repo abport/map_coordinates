@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Leaflet Map</title>
+    <title>Locate GPS</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
         integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
         crossorigin="" />
@@ -28,6 +28,44 @@
 
         .map-container {
             position: relative;
+        }
+
+        form {
+            margin: 10px;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+        }
+
+        label {
+            display: inline-block;
+            width: 100px;
+            text-align: right;
+            margin-right: 10px;
+            margin-bottom: 3px;
+        }
+
+        input[type="text"] {
+            width: 200px;
+            padding: 5px;
+            margin-right: 10px;
+            margin-bottom: 3px;
+            border-radius: 5px;
+            border: none;
+            box-shadow: 1px 1px 1px #ccc;
+        }
+
+        button[type="button"] {
+            padding: 5px;
+            border-radius: 5px;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+
+        button[type="button"]:hover {
+            background-color: #3e8e41;
         }
     </style>
 </head>
